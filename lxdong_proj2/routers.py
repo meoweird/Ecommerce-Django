@@ -13,7 +13,7 @@ class EcommerceRouter:
 
     def __init__(self):
         self.mongo_client = MongoClient(settings.MONGO_URI)
-        self.mongo_db = self.mongo_client.get_database()
+        self.mongo_db = self.mongo_client.get_database(settings.MONGO_DB_NAME)
 
     def db_for_read(self, model, **hints):
         """Xác định database sử dụng để đọc dữ liệu"""
