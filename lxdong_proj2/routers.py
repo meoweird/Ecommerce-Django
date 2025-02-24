@@ -38,3 +38,4 @@ class EcommerceRouter:
         if app_label in self.route_app_labels:
             return db == self.route_app_labels[app_label]
         return db == 'default'
+    

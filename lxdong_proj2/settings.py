@@ -154,8 +154,7 @@ DATABASES = {
         'PASSWORD': os.getenv("POSTGRESQL_DB_PASSWORD"),
         'HOST': os.getenv("POSTGRESQL_DB_HOST"),
         'PORT': os.getenv("POSTGRESQL_DB_PORT"),
-    },
-    
+    },    
 }
 
 DATABASE_ROUTERS = ['lxdong_proj2.routers.EcommerceRouter']
