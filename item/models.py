@@ -32,22 +32,49 @@ class Category(MongoDB):
             category["id"] = str(category["_id"])
             del category["_id"]
         return category
+    
+# Metadata
+class Metadata(MongoDB):
+    def __init__(self):
+        super().__init__()
+        self.collection = self.db['metadata']
+
+    def create(self, category_id, fields=None):
+        """Tạo metadata cho category với danh sách fields mặc định"""
+        if not ObjectId.is_valid(category_id):
+            return None
+        metadata = {
+            "category_id": ObjectId(category_id),
+            "fields": fields or []  # Nếu không có fields thì mặc định là []
+        }
+        result = self.collection.insert_one(metadata)
+        return str(result.inserted_id)
+
+    def get_by_category(self, category_id):
+        """Lấy metadata theo category_id"""
+        if not ObjectId.is_valid(category_id):
+            return None
+        metadata = self.collection.find_one({"category_id": ObjectId(category_id)})
+        if metadata:
+            metadata["id"] = str(metadata["_id"])
+            del metadata["_id"]
+        return metadata
 
 class Item(MongoDB):
     def __init__(self):
         super().__init__()
         self.collection = self.db['items']
 
-    def create(self, name, price, description, category_id, image=None, quantity=0):
+    def create(self, name, category_id, description, image=None, metadata=None, variants=None):
         if not ObjectId.is_valid(category_id):
             return None  
         item = {
             "name": name,
-            "price": price,
-            "description": description,
             "category_id": ObjectId(category_id),
+            "description": description,
             "image": image,
-            "quantity": quantity
+            "metadata": metadata or {},
+            "variants": variants or []
         }
         result = self.collection.insert_one(item)
         return str(result.inserted_id)
