@@ -42,7 +42,7 @@ class ItemSerializer(serializers.Serializer):
             name=validated_data['name'],
             category_id=validated_data['category_id'],
             description=validated_data['description'],
-            image=validated_data.get('image'),
+            image=validated_data.get('image', None),
             metadata=validated_data.get('metadata', {}),
             variants=validated_data.get('variants', [])
         )

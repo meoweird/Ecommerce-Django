@@ -75,7 +75,6 @@ class ItemListView(APIView):
 
 class ItemCreateView(APIView):
     permission_classes = [IsAuthenticated]
-    
     def post(self, request):
         serializer = ItemSerializer(data=request.data)
         if serializer.is_valid():
