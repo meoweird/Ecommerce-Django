@@ -16,7 +16,7 @@ SERVICE_URLS = {
     "laptops" : os.getenv("LAPTOPSVC_URL")
 }
 
-@app.get("/items/")
+@app.get("/api/items/")
 async def get_all_items(): 
     invalid_services = [service for service, url in SERVICE_URLS.items() if url is None]
     if invalid_services:
@@ -43,7 +43,7 @@ async def get_all_items():
 
     return {"items": all_items}
 
-@app.get("/items/{category}/")
+@app.get("/api/items/{category}/")
 async def get_items_by_category(category: str):
     if category not in SERVICE_URLS:
         raise HTTPException(status_code=400, detail="Invalid category")
@@ -56,7 +56,7 @@ async def get_items_by_category(category: str):
 
     return response.json()
 
-@app.get("/items/{category}/{item_id}/")
+@app.get("/api/items/{category}/{item_id}/")
 async def get_item_detail(category: str, item_id: str):
     if category not in SERVICE_URLS:
         raise HTTPException(status_code=400, detail="Invalid category")
