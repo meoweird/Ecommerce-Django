@@ -3,8 +3,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import ChangePasswordSerializer, CustomerDetailSerializer, CustomerRegistrationSerializer, CustomerUpdateSerializer
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from rest_framework_simplejwt.tokens import AccessToken
-# from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework_simplejwt.tokens import AccessToken, RefreshToken
 
 class CustomerRegisterView(APIView):
     permission_classes = [AllowAny]
